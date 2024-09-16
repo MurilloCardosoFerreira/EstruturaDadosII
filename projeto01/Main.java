@@ -3,7 +3,8 @@
 //
 
 /* Referencias
-
+  arvore binária em java: https://www.devmedia.com.br/trabalhando-com-arvores-binarias-em-java/25749
+  
 */
 
 public class Main {
