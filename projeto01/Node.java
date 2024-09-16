@@ -6,7 +6,6 @@
 
 */
 
-
 abstract class Node {
   abstract float evaluate();
 }
