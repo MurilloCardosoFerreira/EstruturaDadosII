@@ -3,6 +3,7 @@
 //
 
 /* Referencias
+  bibliotecas List e ArrayList: https://www.devmedia.com.br/java-collections-set-list-e-iterator/29637;
 
 */
 
