@@ -27,3 +27,36 @@ class OperandoNode extends Node {
     return Float.toString(valor);
   }
 }
+
+class OperadorNode extends Node {
+  private char operador;
+  private Node esquerda;
+  private Node direita;
+
+  public OperadorNode(char operador, Node esquerda, Node direita) {
+    this.operador = operador;
+    this.esquerda = esquerda;
+    this.direita = direita;
+  }
+
+  @Override
+  public float evaluate(){
+    float lado_Esquerdo = esquerda.evaluate();
+    float lado_Direito = direita.evaluate();
+
+    switch (operador) {
+      case '+': return lado_Esquerdo + lado_Direito;
+      case '-': return lado_Esquerdo - lado_Direito;
+      case '*': return lado_Esquerdo * lado_Direito;
+      case '/':
+        if (lado_Direito == 0) throw new ArithmeticException("Divisão por zero");
+        return lado_Esquerdo / lado_Direito;
+      default: throw new IllegalArgumentException("Operador inválido");
+    }
+  }
+
+  @Override
+  public String toString(){
+    return Character.toString(operador);
+  }
+}
