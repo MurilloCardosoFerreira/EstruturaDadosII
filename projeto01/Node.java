@@ -5,58 +5,16 @@
 /* Referencias
 
 */
+public abstract class Node {
+    String value;
+    Node left, right;
 
-abstract class Node {
-  abstract float evaluate();
-}
-
-class OperandoNode extends Node {
-  private float valor;
-
-  public OperandoNode(float valor) {
-    this.valor = valor;
-  }
-
-  @Override
-  public float evaluate() {
-    return valor;
-  }
-
-  @Override
-  public String toString(){
-    return Float.toString(valor);
-  }
-}
-
-class OperadorNode extends Node {
-  private char operador;
-  private Node esquerda;
-  private Node direita;
-
-  public OperadorNode(char operador, Node esquerda, Node direita) {
-    this.operador = operador;
-    this.esquerda = esquerda;
-    this.direita = direita;
-  }
-
-  @Override
-  public float evaluate(){
-    float lado_Esquerdo = esquerda.evaluate();
-    float lado_Direito = direita.evaluate();
-
-    switch (operador) {
-      case '+': return lado_Esquerdo + lado_Direito;
-      case '-': return lado_Esquerdo - lado_Direito;
-      case '*': return lado_Esquerdo * lado_Direito;
-      case '/':
-        if (lado_Direito == 0) throw new ArithmeticException("Divisão por zero");
-        return lado_Esquerdo / lado_Direito;
-      default: throw new IllegalArgumentException("Operador inválido");
+    public Node(String value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
     }
-  }
 
-  @Override
-  public String toString(){
-    return Character.toString(operador);
-  }
+    // Método visitado pelos percursos da árvore
+    public abstract float visitar();
 }
