@@ -7,9 +7,13 @@
   
 */
 
+import java.util.Scanner;
+
 public class Main {
   public static void main(String[] args) {
     int opcao;
+    Scanner sc = new Scanner(System.in);
+    
     do {
 
       // Impressão do Menu
@@ -23,7 +27,7 @@ public class Main {
       System.out.println("| 5. Encerramento do programa.                                |\n");
       System.out.println("|-------------------------------------------------------------|\n");
       System.out.println("Digite a opção desejada: ");
-      opcao = Integer.parseInt(System.console().readLine());
+      opcao = sc.nextInt();
 
 
       switch (opcao) {
@@ -49,6 +53,7 @@ public class Main {
           break;
       }
     } while (opcao != 5);
-
+    
+    sc (close)
   }
 }
