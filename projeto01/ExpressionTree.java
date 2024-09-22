@@ -16,7 +16,12 @@ public class ExpressionTree {
     }
 
     // Método para construir a árvore a partir da expressão infixa
-    public void buildTree(String expression) {
+    public boolean buildTree(String expression) {
+        if (!isValidExpression(expression)) {
+            System.out.println("Expressão inválida, voltando ao menu.");
+            return false;
+        }
+
         Stack<Node> operandStack = new Stack<>();
         Stack<Node> operatorStack = new Stack<>();
 
@@ -49,6 +54,7 @@ public class ExpressionTree {
             }
         }
 
+        // Finalizando a construção
         while (!operatorStack.isEmpty()) {
             Node operator = operatorStack.pop();
             operator.right = operandStack.pop();
@@ -57,10 +63,48 @@ public class ExpressionTree {
         }
 
         root = operandStack.pop();
+        return true;
+    }
+
+    // Verifica se a expressão é válida
+    private boolean isValidExpression(String expression) {
+        int balance = 0;  // Contador de parênteses balanceados
+        boolean lastWasOperator = true;  // Se o último foi operador, o próximo não pode ser operador
+
+        // Remove espaços da expressão
+        expression = expression.replaceAll("\\s+", "");
+
+        // Verifica tokens e formato
+        String[] tokens = tokenize(expression);
+        for (String token : tokens) {
+            if (token.equals("(")) {
+                balance++;
+                lastWasOperator = true;
+            } else if (token.equals(")")) {
+                balance--;
+                if (balance < 0) return false;  // Mais fechamentos do que aberturas
+                lastWasOperator = false;
+            } else if (isOperator(token)) {
+                if (lastWasOperator) return false;  // Dois operadores seguidos
+                lastWasOperator = true;
+            } else if (isNumeric(token)) {
+                lastWasOperator = false;
+            } else {
+                return false;  // Token desconhecido
+            }
+        }
+
+        // Expressão só é válida se os parênteses estão balanceados e o último token não é operador
+        return balance == 0 && !lastWasOperator;
     }
 
     // Método para exibir a árvore
     public void printTree() {
+        if (root == null) {
+            System.out.println("A árvore não foi construída.");
+            return;
+        }
+
         System.out.println("Pre-order:");
         printPreOrder(root);
         System.out.println("\nIn-order:");
